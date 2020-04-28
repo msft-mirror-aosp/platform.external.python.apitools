@@ -24,7 +24,7 @@ class ServicemanagementV1(base_api.BaseApiClient):
                get_credentials=True, http=None, model=None,
                log_request=False, log_response=False,
                credentials_args=None, default_global_params=None,
-               additional_http_headers=None, response_encoding=None):
+               additional_http_headers=None):
     """Create a new servicemanagement handle."""
     url = url or self.BASE_URL
     super(ServicemanagementV1, self).__init__(
@@ -33,8 +33,7 @@ class ServicemanagementV1(base_api.BaseApiClient):
         log_request=log_request, log_response=log_response,
         credentials_args=credentials_args,
         default_global_params=default_global_params,
-        additional_http_headers=additional_http_headers,
-        response_encoding=response_encoding)
+        additional_http_headers=additional_http_headers)
     self.operations = self.OperationsService(self)
     self.services_accessPolicy = self.ServicesAccessPolicyService(self)
     self.services_configs = self.ServicesConfigsService(self)
@@ -54,7 +53,7 @@ class ServicemanagementV1(base_api.BaseApiClient):
           }
 
     def Get(self, request, global_params=None):
-      r"""Gets the latest state of a long-running operation.  Clients can use this.
+      """Gets the latest state of a long-running operation.  Clients can use this.
 method to poll the operation result at intervals as recommended by the API
 service.
 
@@ -92,7 +91,7 @@ service.
           }
 
     def Query(self, request, global_params=None):
-      r"""Method to query the accessibility of a service and any associated.
+      """Method to query the accessibility of a service and any associated.
 visibility labels for a specified user.
 
 Members of the producer project may call this method and specify any user.
@@ -135,7 +134,7 @@ the service.
           }
 
     def Create(self, request, global_params=None):
-      r"""Creates a new service config (version) for a managed service. This method.
+      """Creates a new service config (version) for a managed service. This method.
 only stores the service config, but does not apply the service config to
 any backend services.
 
@@ -163,7 +162,7 @@ any backend services.
     )
 
     def Get(self, request, global_params=None):
-      r"""Gets a service config (version) for a managed service. If `config_id` is.
+      """Gets a service config (version) for a managed service. If `config_id` is.
 not specified, the latest service config will be returned.
 
       Args:
@@ -190,7 +189,7 @@ not specified, the latest service config will be returned.
     )
 
     def List(self, request, global_params=None):
-      r"""Lists the history of the service config for a managed service,.
+      """Lists the history of the service config for a managed service,.
 from the newest to the oldest.
 
       Args:
@@ -217,7 +216,7 @@ from the newest to the oldest.
     )
 
     def Submit(self, request, global_params=None):
-      r"""Creates a new service config (version) for a managed service based on.
+      """Creates a new service config (version) for a managed service based on.
 user-supplied configuration sources files (for example: OpenAPI
 Specification). This method stores the source configurations as well as the
 generated service config. It does NOT apply the service config to any
@@ -259,7 +258,7 @@ Operation<response: SubmitConfigSourceResponse>
           }
 
     def Get(self, request, global_params=None):
-      r"""Retrieves the settings that control the specified customer's usage of the.
+      """Retrieves the settings that control the specified customer's usage of the.
 service.
 
       Args:
@@ -286,7 +285,7 @@ service.
     )
 
     def Patch(self, request, global_params=None):
-      r"""Updates specified subset of the settings that control the specified.
+      """Updates specified subset of the settings that control the specified.
 customer's usage of the service.  Attempts to update a field not
 controlled by the caller will result in an access denied error.
 
@@ -326,7 +325,7 @@ Operation<response: CustomerSettings>
           }
 
     def Get(self, request, global_params=None):
-      r"""Retrieves the settings that control the specified consumer project's usage.
+      """Retrieves the settings that control the specified consumer project's usage.
 of the service.
 
       Args:
@@ -353,7 +352,7 @@ of the service.
     )
 
     def Patch(self, request, global_params=None):
-      r"""Updates specified subset of the settings that control the specified.
+      """Updates specified subset of the settings that control the specified.
 consumer project's usage of the service.  Attempts to update a field not
 controlled by the caller will result in an access denied error.
 
@@ -383,7 +382,7 @@ Operation<response: ProjectSettings>
     )
 
     def Update(self, request, global_params=None):
-      r"""NOTE: Currently unsupported.  Use PatchProjectSettings instead.
+      """NOTE: Currently unsupported.  Use PatchProjectSettings instead.
 
 Updates the settings that control the specified consumer project's usage
 of the service.  Attempts to update a field not controlled by the caller
@@ -425,7 +424,7 @@ Operation<response: ProjectSettings>
           }
 
     def ConvertConfig(self, request, global_params=None):
-      r"""DEPRECATED. `SubmitConfigSource` with `validate_only=true` will provide.
+      """DEPRECATED. `SubmitConfigSource` with `validate_only=true` will provide.
 config conversion moving forward.
 
 Converts an API specification (e.g. Swagger spec) to an
@@ -455,7 +454,7 @@ equivalent `google.api.Service`.
     )
 
     def Create(self, request, global_params=None):
-      r"""Creates a new managed service.
+      """Creates a new managed service.
 
 Operation<response: ManagedService>
 
@@ -483,7 +482,7 @@ Operation<response: ManagedService>
     )
 
     def Delete(self, request, global_params=None):
-      r"""Deletes a managed service.
+      """Deletes a managed service.
 
 Operation<response: google.protobuf.Empty>
 
@@ -511,7 +510,7 @@ Operation<response: google.protobuf.Empty>
     )
 
     def Disable(self, request, global_params=None):
-      r"""Disable a managed service for a project.
+      """Disable a managed service for a project.
 Google Service Management will only disable the managed service even if
 there are other services depend on the managed service.
 
@@ -541,7 +540,7 @@ Operation<response: DisableServiceResponse>
     )
 
     def Enable(self, request, global_params=None):
-      r"""Enable a managed service for a project with default setting.
+      """Enable a managed service for a project with default setting.
 If the managed service has dependencies, they will be enabled as well.
 
 Operation<response: EnableServiceResponse>
@@ -570,7 +569,7 @@ Operation<response: EnableServiceResponse>
     )
 
     def Get(self, request, global_params=None):
-      r"""Gets a managed service. If the `consumer_project_id` is specified,.
+      """Gets a managed service. If the `consumer_project_id` is specified,.
 the project's settings for the specified service are also returned.
 
       Args:
@@ -597,7 +596,7 @@ the project's settings for the specified service are also returned.
     )
 
     def GetAccessPolicy(self, request, global_params=None):
-      r"""Producer method to retrieve current policy.
+      """Producer method to retrieve current policy.
 
       Args:
         request: (ServicemanagementServicesGetAccessPolicyRequest) input message
@@ -623,7 +622,7 @@ the project's settings for the specified service are also returned.
     )
 
     def GetConfig(self, request, global_params=None):
-      r"""Gets a service config (version) for a managed service. If `config_id` is.
+      """Gets a service config (version) for a managed service. If `config_id` is.
 not specified, the latest service config will be returned.
 
       Args:
@@ -650,7 +649,7 @@ not specified, the latest service config will be returned.
     )
 
     def List(self, request, global_params=None):
-      r"""Lists all managed services. If the `consumer_project_id` is specified,.
+      """Lists all managed services. If the `consumer_project_id` is specified,.
 the project's settings for the specified service are also returned.
 
       Args:
@@ -677,7 +676,7 @@ the project's settings for the specified service are also returned.
     )
 
     def Patch(self, request, global_params=None):
-      r"""Updates the specified subset of the configuration. If the specified service.
+      """Updates the specified subset of the configuration. If the specified service.
 does not exists the patch operation fails.
 
 Operation<response: ManagedService>
@@ -706,7 +705,7 @@ Operation<response: ManagedService>
     )
 
     def PatchConfig(self, request, global_params=None):
-      r"""Updates the specified subset of the service resource. Equivalent to.
+      """Updates the specified subset of the service resource. Equivalent to.
 calling `PatchService` with only the `service_config` field updated.
 
 Operation<response: google.api.Service>
@@ -735,7 +734,7 @@ Operation<response: google.api.Service>
     )
 
     def Update(self, request, global_params=None):
-      r"""Updates the configuration of a service.  If the specified service does not.
+      """Updates the configuration of a service.  If the specified service does not.
 already exist, then it is created.
 
 Operation<response: ManagedService>
@@ -764,7 +763,7 @@ Operation<response: ManagedService>
     )
 
     def UpdateAccessPolicy(self, request, global_params=None):
-      r"""Producer method to update the current policy.  This method will return an.
+      """Producer method to update the current policy.  This method will return an.
 error if the policy is too large (more than 50 entries across all lists).
 
       Args:
@@ -791,7 +790,7 @@ error if the policy is too large (more than 50 entries across all lists).
     )
 
     def UpdateConfig(self, request, global_params=None):
-      r"""Updates the specified subset of the service resource. Equivalent to.
+      """Updates the specified subset of the service resource. Equivalent to.
 calling `UpdateService` with only the `service_config` field updated.
 
 Operation<response: google.api.Service>
@@ -830,7 +829,7 @@ Operation<response: google.api.Service>
           }
 
     def ConvertConfig(self, request, global_params=None):
-      r"""DEPRECATED. `SubmitConfigSource` with `validate_only=true` will provide.
+      """DEPRECATED. `SubmitConfigSource` with `validate_only=true` will provide.
 config conversion moving forward.
 
 Converts an API specification (e.g. Swagger spec) to an

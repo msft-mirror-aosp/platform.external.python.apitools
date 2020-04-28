@@ -34,7 +34,7 @@ class ServiceRegistry(object):
 
     """Registry for service types."""
 
-    def __init__(self, client_info, message_registry,
+    def __init__(self, client_info, message_registry, command_registry,
                  names, root_package, base_files_package,
                  unelidable_request_methods):
         self.__client_info = client_info
@@ -42,6 +42,7 @@ class ServiceRegistry(object):
         self.__names = names
         self.__service_method_info_map = collections.OrderedDict()
         self.__message_registry = message_registry
+        self.__command_registry = command_registry
         self.__root_package = root_package
         self.__base_files_package = base_files_package
         self.__unelidable_request_methods = unelidable_request_methods
@@ -70,7 +71,7 @@ class ServiceRegistry(object):
         else:
             description = '%s method for the %s service.' % (method_name, name)
         with printer.CommentContext():
-            printer('r"""%s' % description)
+            printer('"""%s' % description)
         printer()
         printer('Args:')
         printer('  request: (%s) input message', method_info.request_type_name)
@@ -237,8 +238,7 @@ class ServiceRegistry(object):
                 printer('get_credentials=True, http=None, model=None,')
                 printer('log_request=False, log_response=False,')
                 printer('credentials_args=None, default_global_params=None,')
-                printer('additional_http_headers=None, '
-                        'response_encoding=None):')
+                printer('additional_http_headers=None):')
             with printer.Indent():
                 printer('"""Create a new %s handle."""', client_info.package)
                 printer('url = url or self.BASE_URL')
@@ -251,8 +251,7 @@ class ServiceRegistry(object):
                         'log_response=log_response,')
                 printer('    credentials_args=credentials_args,')
                 printer('    default_global_params=default_global_params,')
-                printer('    additional_http_headers=additional_http_headers,')
-                printer('    response_encoding=response_encoding)')
+                printer('    additional_http_headers=additional_http_headers)')
                 for name in self.__service_method_info_map.keys():
                     printer('self.%s = self.%s(self)',
                             name, self.__GetServiceClassName(name))
@@ -443,7 +442,6 @@ class ServiceRegistry(object):
 
     def AddServiceFromResource(self, service_name, methods):
         """Add a new service named service_name with the given methods."""
-        service_name = self.__names.CleanName(service_name)
         method_descriptions = methods.get('methods', {})
         method_info_map = collections.OrderedDict()
         items = sorted(method_descriptions.items())
@@ -473,6 +471,9 @@ class ServiceRegistry(object):
 
             method_info_map[method_name] = self.__ComputeMethodInfo(
                 method_description, request, response, request_field)
+            self.__command_registry.AddCommandForMethod(
+                service_name, method_name, method_info_map[method_name],
+                request, response)
 
         nested_services = methods.get('resources', {})
         services = sorted(nested_services.items())

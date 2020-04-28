@@ -51,10 +51,6 @@ class MyMessage(messages.Message):
 
         nested_value = messages.StringField(1)
 
-    class NestedDatetime(messages.Message):
-
-        nested_dt_value = message_types.DateTimeField(1)
-
     a_string = messages.StringField(2)
     an_integer = messages.IntegerField(3)
     a_float = messages.FloatField(4)
@@ -67,7 +63,6 @@ class MyMessage(messages.Message):
     a_repeated_datetime = message_types.DateTimeField(11, repeated=True)
     a_custom = CustomField(12)
     a_repeated_custom = CustomField(13, repeated=True)
-    a_nested_datetime = messages.MessageField(NestedDatetime, 14)
 
 
 class ModuleInterfaceTest(test_util.ModuleInterfaceTest,
@@ -203,16 +198,12 @@ class ProtojsonTest(test_util.TestCase,
 
     def testNumericEnumerationNegativeTest(self):
         """Test with an invalid number for the enum value."""
-        # The message should successfully decode.
-        message = protojson.decode_message(MyMessage,
-                                           '{"an_enum": 89}')
-
-        expected_message = MyMessage()
-
-        self.assertEquals(expected_message, message)
-        # The roundtrip should result in equivalent encoded
-        # message.
-        self.assertEquals('{"an_enum": 89}', protojson.encode_message(message))
+        self.assertRaisesRegexp(
+            messages.DecodeError,
+            'Invalid enum value "89"',
+            protojson.decode_message,
+            MyMessage,
+            '{"an_enum": 89}')
 
     def testAlphaEnumeration(self):
         """Test that alpha enum values work."""
@@ -225,27 +216,21 @@ class ProtojsonTest(test_util.TestCase,
 
     def testAlphaEnumerationNegativeTest(self):
         """The alpha enum value is invalid."""
-        # The message should successfully decode.
-        message = protojson.decode_message(MyMessage,
-                                           '{"an_enum": "IAMINVALID"}')
-
-        expected_message = MyMessage()
-
-        self.assertEquals(expected_message, message)
-        # The roundtrip should result in equivalent encoded message.
-        self.assertEquals('{"an_enum": "IAMINVALID"}',
-                          protojson.encode_message(message))
+        self.assertRaisesRegexp(
+            messages.DecodeError,
+            'Invalid enum value "IAMINVALID"',
+            protojson.decode_message,
+            MyMessage,
+            '{"an_enum": "IAMINVALID"}')
 
     def testEnumerationNegativeTestWithEmptyString(self):
         """The enum value is an empty string."""
-        # The message should successfully decode.
-        message = protojson.decode_message(MyMessage, '{"an_enum": ""}')
-
-        expected_message = MyMessage()
-
-        self.assertEquals(expected_message, message)
-        # The roundtrip should result in equivalent encoded message.
-        self.assertEquals('{"an_enum": ""}', protojson.encode_message(message))
+        self.assertRaisesRegexp(
+            messages.DecodeError,
+            'Invalid enum value ""',
+            protojson.decode_message,
+            MyMessage,
+            '{"an_enum": ""}')
 
     def testNullValues(self):
         """Test that null values overwrite existing values."""
@@ -372,16 +357,6 @@ class ProtojsonTest(test_util.TestCase,
     def testDecodeInvalidDateTime(self):
         self.assertRaises(messages.DecodeError, protojson.decode_message,
                           MyMessage, '{"a_datetime": "invalid"}')
-
-    def testDecodeInvalidMessage(self):
-        encoded = """{
-        "a_nested_datetime": {
-          "nested_dt_value": "invalid"
-          }
-        }
-        """
-        self.assertRaises(messages.DecodeError, protojson.decode_message,
-                          MyMessage, encoded)
 
     def testEncodeDateTime(self):
         for datetime_string, datetime_vals in (

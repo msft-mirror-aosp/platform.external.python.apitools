@@ -24,7 +24,7 @@ class StorageV1(base_api.BaseApiClient):
                get_credentials=True, http=None, model=None,
                log_request=False, log_response=False,
                credentials_args=None, default_global_params=None,
-               additional_http_headers=None, response_encoding=None):
+               additional_http_headers=None):
     """Create a new storage handle."""
     url = url or self.BASE_URL
     super(StorageV1, self).__init__(
@@ -33,8 +33,7 @@ class StorageV1(base_api.BaseApiClient):
         log_request=log_request, log_response=log_response,
         credentials_args=credentials_args,
         default_global_params=default_global_params,
-        additional_http_headers=additional_http_headers,
-        response_encoding=response_encoding)
+        additional_http_headers=additional_http_headers)
     self.bucketAccessControls = self.BucketAccessControlsService(self)
     self.buckets = self.BucketsService(self)
     self.channels = self.ChannelsService(self)
@@ -54,7 +53,7 @@ class StorageV1(base_api.BaseApiClient):
           }
 
     def Delete(self, request, global_params=None):
-      r"""Permanently deletes the ACL entry for the specified entity on the specified bucket.
+      """Permanently deletes the ACL entry for the specified entity on the specified bucket.
 
       Args:
         request: (StorageBucketAccessControlsDeleteRequest) input message
@@ -80,7 +79,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Get(self, request, global_params=None):
-      r"""Returns the ACL entry for the specified entity on the specified bucket.
+      """Returns the ACL entry for the specified entity on the specified bucket.
 
       Args:
         request: (StorageBucketAccessControlsGetRequest) input message
@@ -106,7 +105,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Insert(self, request, global_params=None):
-      r"""Creates a new ACL entry on the specified bucket.
+      """Creates a new ACL entry on the specified bucket.
 
       Args:
         request: (BucketAccessControl) input message
@@ -132,7 +131,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def List(self, request, global_params=None):
-      r"""Retrieves ACL entries on the specified bucket.
+      """Retrieves ACL entries on the specified bucket.
 
       Args:
         request: (StorageBucketAccessControlsListRequest) input message
@@ -158,7 +157,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Patch(self, request, global_params=None):
-      r"""Updates an ACL entry on the specified bucket. This method supports patch semantics.
+      """Updates an ACL entry on the specified bucket. This method supports patch semantics.
 
       Args:
         request: (BucketAccessControl) input message
@@ -184,7 +183,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Update(self, request, global_params=None):
-      r"""Updates an ACL entry on the specified bucket.
+      """Updates an ACL entry on the specified bucket.
 
       Args:
         request: (BucketAccessControl) input message
@@ -220,7 +219,7 @@ class StorageV1(base_api.BaseApiClient):
           }
 
     def Delete(self, request, global_params=None):
-      r"""Permanently deletes an empty bucket.
+      """Permanently deletes an empty bucket.
 
       Args:
         request: (StorageBucketsDeleteRequest) input message
@@ -246,7 +245,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Get(self, request, global_params=None):
-      r"""Returns metadata for the specified bucket.
+      """Returns metadata for the specified bucket.
 
       Args:
         request: (StorageBucketsGetRequest) input message
@@ -272,7 +271,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def GetIamPolicy(self, request, global_params=None):
-      r"""Returns an IAM policy for the specified bucket.
+      """Returns an IAM policy for the specified bucket.
 
       Args:
         request: (StorageBucketsGetIamPolicyRequest) input message
@@ -298,7 +297,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Insert(self, request, global_params=None):
-      r"""Creates a new bucket.
+      """Creates a new bucket.
 
       Args:
         request: (StorageBucketsInsertRequest) input message
@@ -324,7 +323,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def List(self, request, global_params=None):
-      r"""Retrieves a list of buckets for a given project.
+      """Retrieves a list of buckets for a given project.
 
       Args:
         request: (StorageBucketsListRequest) input message
@@ -350,7 +349,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Patch(self, request, global_params=None):
-      r"""Updates a bucket. This method supports patch semantics.
+      """Updates a bucket. This method supports patch semantics.
 
       Args:
         request: (StorageBucketsPatchRequest) input message
@@ -376,7 +375,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def SetIamPolicy(self, request, global_params=None):
-      r"""Updates an IAM policy for the specified bucket.
+      """Updates an IAM policy for the specified bucket.
 
       Args:
         request: (StorageBucketsSetIamPolicyRequest) input message
@@ -402,7 +401,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def TestIamPermissions(self, request, global_params=None):
-      r"""Tests a set of permissions on the given bucket to see which, if any, are held by the caller.
+      """Tests a set of permissions on the given bucket to see which, if any, are held by the caller.
 
       Args:
         request: (StorageBucketsTestIamPermissionsRequest) input message
@@ -428,7 +427,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Update(self, request, global_params=None):
-      r"""Updates a bucket.
+      """Updates a bucket.
 
       Args:
         request: (StorageBucketsUpdateRequest) input message
@@ -464,7 +463,7 @@ class StorageV1(base_api.BaseApiClient):
           }
 
     def Stop(self, request, global_params=None):
-      r"""Stop watching resources through this channel.
+      """Stop watching resources through this channel.
 
       Args:
         request: (Channel) input message
@@ -500,7 +499,7 @@ class StorageV1(base_api.BaseApiClient):
           }
 
     def Delete(self, request, global_params=None):
-      r"""Permanently deletes the default object ACL entry for the specified entity on the specified bucket.
+      """Permanently deletes the default object ACL entry for the specified entity on the specified bucket.
 
       Args:
         request: (StorageDefaultObjectAccessControlsDeleteRequest) input message
@@ -526,7 +525,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Get(self, request, global_params=None):
-      r"""Returns the default object ACL entry for the specified entity on the specified bucket.
+      """Returns the default object ACL entry for the specified entity on the specified bucket.
 
       Args:
         request: (StorageDefaultObjectAccessControlsGetRequest) input message
@@ -552,7 +551,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Insert(self, request, global_params=None):
-      r"""Creates a new default object ACL entry on the specified bucket.
+      """Creates a new default object ACL entry on the specified bucket.
 
       Args:
         request: (ObjectAccessControl) input message
@@ -578,7 +577,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def List(self, request, global_params=None):
-      r"""Retrieves default object ACL entries on the specified bucket.
+      """Retrieves default object ACL entries on the specified bucket.
 
       Args:
         request: (StorageDefaultObjectAccessControlsListRequest) input message
@@ -604,7 +603,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Patch(self, request, global_params=None):
-      r"""Updates a default object ACL entry on the specified bucket. This method supports patch semantics.
+      """Updates a default object ACL entry on the specified bucket. This method supports patch semantics.
 
       Args:
         request: (ObjectAccessControl) input message
@@ -630,7 +629,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Update(self, request, global_params=None):
-      r"""Updates a default object ACL entry on the specified bucket.
+      """Updates a default object ACL entry on the specified bucket.
 
       Args:
         request: (ObjectAccessControl) input message
@@ -666,7 +665,7 @@ class StorageV1(base_api.BaseApiClient):
           }
 
     def Delete(self, request, global_params=None):
-      r"""Permanently deletes a notification subscription.
+      """Permanently deletes a notification subscription.
 
       Args:
         request: (StorageNotificationsDeleteRequest) input message
@@ -692,7 +691,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Get(self, request, global_params=None):
-      r"""View a notification configuration.
+      """View a notification configuration.
 
       Args:
         request: (StorageNotificationsGetRequest) input message
@@ -718,7 +717,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Insert(self, request, global_params=None):
-      r"""Creates a notification subscription for a given bucket.
+      """Creates a notification subscription for a given bucket.
 
       Args:
         request: (Notification) input message
@@ -744,7 +743,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def List(self, request, global_params=None):
-      r"""Retrieves a list of notification subscriptions for a given bucket.
+      """Retrieves a list of notification subscriptions for a given bucket.
 
       Args:
         request: (StorageNotificationsListRequest) input message
@@ -780,7 +779,7 @@ class StorageV1(base_api.BaseApiClient):
           }
 
     def Delete(self, request, global_params=None):
-      r"""Permanently deletes the ACL entry for the specified entity on the specified object.
+      """Permanently deletes the ACL entry for the specified entity on the specified object.
 
       Args:
         request: (StorageObjectAccessControlsDeleteRequest) input message
@@ -806,7 +805,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Get(self, request, global_params=None):
-      r"""Returns the ACL entry for the specified entity on the specified object.
+      """Returns the ACL entry for the specified entity on the specified object.
 
       Args:
         request: (StorageObjectAccessControlsGetRequest) input message
@@ -832,7 +831,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Insert(self, request, global_params=None):
-      r"""Creates a new ACL entry on the specified object.
+      """Creates a new ACL entry on the specified object.
 
       Args:
         request: (StorageObjectAccessControlsInsertRequest) input message
@@ -858,7 +857,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def List(self, request, global_params=None):
-      r"""Retrieves ACL entries on the specified object.
+      """Retrieves ACL entries on the specified object.
 
       Args:
         request: (StorageObjectAccessControlsListRequest) input message
@@ -884,7 +883,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Patch(self, request, global_params=None):
-      r"""Updates an ACL entry on the specified object. This method supports patch semantics.
+      """Updates an ACL entry on the specified object. This method supports patch semantics.
 
       Args:
         request: (StorageObjectAccessControlsPatchRequest) input message
@@ -910,7 +909,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Update(self, request, global_params=None):
-      r"""Updates an ACL entry on the specified object.
+      """Updates an ACL entry on the specified object.
 
       Args:
         request: (StorageObjectAccessControlsUpdateRequest) input message
@@ -954,7 +953,7 @@ class StorageV1(base_api.BaseApiClient):
           }
 
     def Compose(self, request, global_params=None, download=None):
-      r"""Concatenates a list of existing objects into a new object in the same bucket.
+      """Concatenates a list of existing objects into a new object in the same bucket.
 
       Args:
         request: (StorageObjectsComposeRequest) input message
@@ -983,7 +982,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Copy(self, request, global_params=None, download=None):
-      r"""Copies a source object to a destination object. Optionally overrides metadata.
+      """Copies a source object to a destination object. Optionally overrides metadata.
 
       Args:
         request: (StorageObjectsCopyRequest) input message
@@ -1012,7 +1011,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Delete(self, request, global_params=None):
-      r"""Deletes an object and its metadata. Deletions are permanent if versioning is not enabled for the bucket, or if the generation parameter is used.
+      """Deletes an object and its metadata. Deletions are permanent if versioning is not enabled for the bucket, or if the generation parameter is used.
 
       Args:
         request: (StorageObjectsDeleteRequest) input message
@@ -1038,7 +1037,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Get(self, request, global_params=None, download=None):
-      r"""Retrieves an object or its metadata.
+      """Retrieves an object or its metadata.
 
       Args:
         request: (StorageObjectsGetRequest) input message
@@ -1067,7 +1066,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def GetIamPolicy(self, request, global_params=None):
-      r"""Returns an IAM policy for the specified object.
+      """Returns an IAM policy for the specified object.
 
       Args:
         request: (StorageObjectsGetIamPolicyRequest) input message
@@ -1093,7 +1092,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Insert(self, request, global_params=None, upload=None, download=None):
-      r"""Stores a new object and metadata.
+      """Stores a new object and metadata.
 
       Args:
         request: (StorageObjectsInsertRequest) input message
@@ -1126,7 +1125,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def List(self, request, global_params=None):
-      r"""Retrieves a list of objects matching the criteria.
+      """Retrieves a list of objects matching the criteria.
 
       Args:
         request: (StorageObjectsListRequest) input message
@@ -1152,7 +1151,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Patch(self, request, global_params=None):
-      r"""Updates an object's metadata. This method supports patch semantics.
+      """Updates an object's metadata. This method supports patch semantics.
 
       Args:
         request: (StorageObjectsPatchRequest) input message
@@ -1178,7 +1177,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Rewrite(self, request, global_params=None):
-      r"""Rewrites a source object to a destination object. Optionally overrides metadata.
+      """Rewrites a source object to a destination object. Optionally overrides metadata.
 
       Args:
         request: (StorageObjectsRewriteRequest) input message
@@ -1204,7 +1203,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def SetIamPolicy(self, request, global_params=None):
-      r"""Updates an IAM policy for the specified object.
+      """Updates an IAM policy for the specified object.
 
       Args:
         request: (StorageObjectsSetIamPolicyRequest) input message
@@ -1230,7 +1229,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def TestIamPermissions(self, request, global_params=None):
-      r"""Tests a set of permissions on the given object to see which, if any, are held by the caller.
+      """Tests a set of permissions on the given object to see which, if any, are held by the caller.
 
       Args:
         request: (StorageObjectsTestIamPermissionsRequest) input message
@@ -1256,7 +1255,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def Update(self, request, global_params=None, download=None):
-      r"""Updates an object's metadata.
+      """Updates an object's metadata.
 
       Args:
         request: (StorageObjectsUpdateRequest) input message
@@ -1285,7 +1284,7 @@ class StorageV1(base_api.BaseApiClient):
     )
 
     def WatchAll(self, request, global_params=None):
-      r"""Watch for changes on all objects in a bucket.
+      """Watch for changes on all objects in a bucket.
 
       Args:
         request: (StorageObjectsWatchAllRequest) input message

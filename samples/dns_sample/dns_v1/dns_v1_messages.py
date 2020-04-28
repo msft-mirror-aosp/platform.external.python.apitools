@@ -12,7 +12,7 @@ package = 'dns'
 
 
 class Change(_messages.Message):
-  r"""An atomic update to a collection of ResourceRecordSets.
+  """An atomic update to a collection of ResourceRecordSets.
 
   Enums:
     StatusValueValuesEnum: Status of the operation (output only).
@@ -31,7 +31,7 @@ class Change(_messages.Message):
   """
 
   class StatusValueValuesEnum(_messages.Enum):
-    r"""Status of the operation (output only).
+    """Status of the operation (output only).
 
     Values:
       done: <no description>
@@ -49,7 +49,7 @@ class Change(_messages.Message):
 
 
 class ChangesListResponse(_messages.Message):
-  r"""The response to a request to enumerate Changes to a ResourceRecordSets
+  """The response to a request to enumerate Changes to a ResourceRecordSets
   collection.
 
   Fields:
@@ -72,7 +72,7 @@ class ChangesListResponse(_messages.Message):
 
 
 class DnsChangesCreateRequest(_messages.Message):
-  r"""A DnsChangesCreateRequest object.
+  """A DnsChangesCreateRequest object.
 
   Fields:
     change: A Change resource to be passed as the request body.
@@ -87,7 +87,7 @@ class DnsChangesCreateRequest(_messages.Message):
 
 
 class DnsChangesGetRequest(_messages.Message):
-  r"""A DnsChangesGetRequest object.
+  """A DnsChangesGetRequest object.
 
   Fields:
     changeId: The identifier of the requested change, from a previous
@@ -103,7 +103,7 @@ class DnsChangesGetRequest(_messages.Message):
 
 
 class DnsChangesListRequest(_messages.Message):
-  r"""A DnsChangesListRequest object.
+  """A DnsChangesListRequest object.
 
   Enums:
     SortByValueValuesEnum: Sorting criterion. The only supported value is
@@ -122,7 +122,7 @@ class DnsChangesListRequest(_messages.Message):
   """
 
   class SortByValueValuesEnum(_messages.Enum):
-    r"""Sorting criterion. The only supported value is change sequence.
+    """Sorting criterion. The only supported value is change sequence.
 
     Values:
       changeSequence: <no description>
@@ -138,7 +138,7 @@ class DnsChangesListRequest(_messages.Message):
 
 
 class DnsManagedZonesCreateRequest(_messages.Message):
-  r"""A DnsManagedZonesCreateRequest object.
+  """A DnsManagedZonesCreateRequest object.
 
   Fields:
     managedZone: A ManagedZone resource to be passed as the request body.
@@ -150,7 +150,7 @@ class DnsManagedZonesCreateRequest(_messages.Message):
 
 
 class DnsManagedZonesDeleteRequest(_messages.Message):
-  r"""A DnsManagedZonesDeleteRequest object.
+  """A DnsManagedZonesDeleteRequest object.
 
   Fields:
     managedZone: Identifies the managed zone addressed by this request. Can be
@@ -163,11 +163,11 @@ class DnsManagedZonesDeleteRequest(_messages.Message):
 
 
 class DnsManagedZonesDeleteResponse(_messages.Message):
-  r"""An empty DnsManagedZonesDelete response."""
+  """An empty DnsManagedZonesDelete response."""
 
 
 class DnsManagedZonesGetRequest(_messages.Message):
-  r"""A DnsManagedZonesGetRequest object.
+  """A DnsManagedZonesGetRequest object.
 
   Fields:
     managedZone: Identifies the managed zone addressed by this request. Can be
@@ -180,7 +180,7 @@ class DnsManagedZonesGetRequest(_messages.Message):
 
 
 class DnsManagedZonesListRequest(_messages.Message):
-  r"""A DnsManagedZonesListRequest object.
+  """A DnsManagedZonesListRequest object.
 
   Fields:
     dnsName: Restricts the list to return only zones with this domain name.
@@ -198,7 +198,7 @@ class DnsManagedZonesListRequest(_messages.Message):
 
 
 class DnsProjectsGetRequest(_messages.Message):
-  r"""A DnsProjectsGetRequest object.
+  """A DnsProjectsGetRequest object.
 
   Fields:
     project: Identifies the project addressed by this request.
@@ -208,7 +208,7 @@ class DnsProjectsGetRequest(_messages.Message):
 
 
 class DnsResourceRecordSetsListRequest(_messages.Message):
-  r"""A DnsResourceRecordSetsListRequest object.
+  """A DnsResourceRecordSetsListRequest object.
 
   Fields:
     managedZone: Identifies the managed zone addressed by this request. Can be
@@ -233,7 +233,7 @@ class DnsResourceRecordSetsListRequest(_messages.Message):
 
 
 class ManagedZone(_messages.Message):
-  r"""A zone is a subtree of the DNS namespace under one administrative
+  """A zone is a subtree of the DNS namespace under one administrative
   responsibility. A ManagedZone is a resource that represents a DNS zone
   hosted by the Cloud DNS service.
 
@@ -270,7 +270,7 @@ class ManagedZone(_messages.Message):
 
 
 class ManagedZonesListResponse(_messages.Message):
-  r"""A ManagedZonesListResponse object.
+  """A ManagedZonesListResponse object.
 
   Fields:
     kind: Type of resource.
@@ -292,7 +292,7 @@ class ManagedZonesListResponse(_messages.Message):
 
 
 class Project(_messages.Message):
-  r"""A project resource. The project is a top level container for resources
+  """A project resource. The project is a top level container for resources
   including Cloud DNS ManagedZones. Projects can be created only in the APIs
   console.
 
@@ -312,7 +312,7 @@ class Project(_messages.Message):
 
 
 class Quota(_messages.Message):
-  r"""Limits associated with a Project.
+  """Limits associated with a Project.
 
   Fields:
     kind: Identifies what kind of resource this is. Value: the fixed string
@@ -340,7 +340,7 @@ class Quota(_messages.Message):
 
 
 class ResourceRecordSet(_messages.Message):
-  r"""A unit of data that will be returned by the DNS servers.
+  """A unit of data that will be returned by the DNS servers.
 
   Fields:
     kind: Identifies what kind of resource this is. Value: the fixed string
@@ -361,7 +361,7 @@ class ResourceRecordSet(_messages.Message):
 
 
 class ResourceRecordSetsListResponse(_messages.Message):
-  r"""A ResourceRecordSetsListResponse object.
+  """A ResourceRecordSetsListResponse object.
 
   Fields:
     kind: Type of resource.
@@ -383,7 +383,7 @@ class ResourceRecordSetsListResponse(_messages.Message):
 
 
 class StandardQueryParameters(_messages.Message):
-  r"""Query parameters accepted by all methods.
+  """Query parameters accepted by all methods.
 
   Enums:
     AltValueValuesEnum: Data format for the response.
@@ -406,7 +406,7 @@ class StandardQueryParameters(_messages.Message):
   """
 
   class AltValueValuesEnum(_messages.Enum):
-    r"""Data format for the response.
+    """Data format for the response.
 
     Values:
       json: Responses with Content-Type of application/json

@@ -78,8 +78,6 @@ def _load_json_module():
 
     logging.error('Must use valid json library (json or simplejson)')
     raise first_import_error  # pylint:disable=raising-bad-type
-
-
 json = _load_json_module()
 
 
@@ -125,8 +123,6 @@ class MessageJSONEncoder(json.JSONEncoder):
             for unknown_key in value.all_unrecognized_fields():
                 unrecognized_field, _ = value.get_unrecognized_field_info(
                     unknown_key)
-                # Unknown fields are not encoded as they should have been
-                # processed before we get to here.
                 result[unknown_key] = unrecognized_field
             return result
 
@@ -206,7 +202,6 @@ class ProtoJson(object):
           ValueError: If encoded_message is not valid JSON.
           messages.ValidationError if merged message is not initialized.
         """
-        encoded_message = six.ensure_str(encoded_message)
         if not encoded_message.strip():
             return message_type()
 
@@ -286,19 +281,11 @@ class ProtoJson(object):
                 valid_value = [self.decode_field(field, item)
                                for item in value]
                 setattr(message, field.name, valid_value)
-                continue
-            # This is just for consistency with the old behavior.
-            if value == []:
-                continue
-            try:
+            else:
+                # This is just for consistency with the old behavior.
+                if value == []:
+                    continue
                 setattr(message, field.name, self.decode_field(field, value))
-            except messages.DecodeError:
-                # Save unknown enum values.
-                if not isinstance(field, messages.EnumField):
-                    raise
-                variant = self.__find_variant(value)
-                if variant:
-                    message.set_unrecognized_field(key, value, variant)
 
         return message
 
@@ -370,7 +357,6 @@ class ProtoJson(object):
         if not isinstance(protocol, ProtoJson):
             raise TypeError('Expected protocol of type ProtoJson')
         ProtoJson.__default = protocol
-
 
 CONTENT_TYPE = ProtoJson.CONTENT_TYPE
 

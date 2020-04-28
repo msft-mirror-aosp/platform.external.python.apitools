@@ -32,6 +32,7 @@ def _GetContent(file_path):
         return f.read()
 
 
+@test_utils.RunOnlyOnPython27
 class ClientGenCliTest(unittest2.TestCase):
 
     def testHelp_NotEnoughArguments(self):
@@ -46,6 +47,7 @@ class ClientGenCliTest(unittest2.TestCase):
         with test_utils.TempDir() as tmp_dir_path:
             gen_client.main([
                 gen_client.__file__,
+                '--generate_cli',
                 '--init-file', 'none',
                 '--infile', GetTestDataPath('dns', 'dns_v1.json'),
                 '--outdir', tmp_dir_path,
@@ -54,6 +56,7 @@ class ClientGenCliTest(unittest2.TestCase):
                 'client'
             ])
             expected_files = (
+                set(['dns_v1.py']) |  # CLI files
                 set(['dns_v1_client.py', 'dns_v1_messages.py']))
             self.assertEquals(expected_files, set(os.listdir(tmp_dir_path)))
 
@@ -61,6 +64,7 @@ class ClientGenCliTest(unittest2.TestCase):
         with test_utils.TempDir() as tmp_dir_path:
             gen_client.main([
                 gen_client.__file__,
+                '--generate_cli',
                 '--init-file', 'empty',
                 '--infile', GetTestDataPath('dns', 'dns_v1.json'),
                 '--outdir', tmp_dir_path,
@@ -69,6 +73,7 @@ class ClientGenCliTest(unittest2.TestCase):
                 'client'
             ])
             expected_files = (
+                set(['dns_v1.py']) |  # CLI files
                 set(['dns_v1_client.py', 'dns_v1_messages.py', '__init__.py']))
             self.assertEquals(expected_files, set(os.listdir(tmp_dir_path)))
             init_file = _GetContent(os.path.join(tmp_dir_path, '__init__.py'))
@@ -83,6 +88,7 @@ __path__ = pkgutil.extend_path(__path__, __name__)
         with test_utils.TempDir() as tmp_dir_path:
             gen_client.main([
                 gen_client.__file__,
+                '--nogenerate_cli',
                 '--infile', GetTestDataPath('dns', 'dns_v1.json'),
                 '--outdir', tmp_dir_path,
                 '--overwrite',
@@ -98,6 +104,7 @@ __path__ = pkgutil.extend_path(__path__, __name__)
         with test_utils.TempDir() as tmp_dir_path:
             gen_client.main([
                 gen_client.__file__,
+                '--nogenerate_cli',
                 '--infile', GetTestDataPath('dns', 'dns_v1.json'),
                 '--outdir', tmp_dir_path,
                 '--overwrite',
@@ -113,6 +120,7 @@ __path__ = pkgutil.extend_path(__path__, __name__)
         with test_utils.TempDir() as tmp_dir_path:
             gen_client.main([
                 gen_client.__file__,
+                '--nogenerate_cli',
                 '--infile', GetTestDataPath('dns', 'dns_v1.json'),
                 '--outdir', tmp_dir_path,
                 '--overwrite',
@@ -127,6 +135,7 @@ __path__ = pkgutil.extend_path(__path__, __name__)
         with test_utils.TempDir() as tmp_dir_path:
             gen_client.main([
                 gen_client.__file__,
+                '--nogenerate_cli',
                 '--infile', GetTestDataPath('dns', 'dns_v1.json'),
                 '--outdir', tmp_dir_path,
                 '--overwrite',

@@ -27,18 +27,13 @@ import socket
 import time
 
 import httplib2
+import oauth2client
 import six
 from six.moves import http_client
 from six.moves.urllib import parse
 
 from apitools.base.py import exceptions
 from apitools.base.py import util
-
-# pylint: disable=ungrouped-imports
-try:
-    from oauth2client.client import HttpAccessTokenRefreshError as TokenRefreshError  # noqa
-except ImportError:
-    from oauth2client.client import AccessTokenRefreshError as TokenRefreshError  # noqa
 
 __all__ = [
     'CheckResponse',
@@ -284,8 +279,8 @@ def HandleExceptionsAndRebuildHttpConnections(retry_args):
         # oauth2client, need to handle it here.
         logging.debug('Response content was invalid (%s), retrying',
                       retry_args.exc)
-    elif (isinstance(retry_args.exc, TokenRefreshError) and
-          hasattr(retry_args.exc, 'status') and
+    elif (isinstance(retry_args.exc,
+                     oauth2client.client.HttpAccessTokenRefreshError) and
           (retry_args.exc.status == TOO_MANY_REQUESTS or
            retry_args.exc.status >= 500)):
         logging.debug(
@@ -301,7 +296,7 @@ def HandleExceptionsAndRebuildHttpConnections(retry_args):
         logging.debug('Response returned a retry-after header, retrying')
         retry_after = retry_args.exc.retry_after
     else:
-        raise retry_args.exc
+        raise  # pylint: disable=misplaced-bare-raise
     RebuildHttpConnections(retry_args.http)
     logging.debug('Retrying request to url %s after exception %s',
                   retry_args.http_request.url, retry_args.exc)
