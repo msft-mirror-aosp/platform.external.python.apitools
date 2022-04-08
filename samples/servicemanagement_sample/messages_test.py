@@ -15,7 +15,7 @@
 
 """Test for generated servicemanagement messages module."""
 
-import unittest
+import unittest2
 
 from apitools.base.py import extra_types
 
@@ -23,7 +23,7 @@ from samples.servicemanagement_sample.servicemanagement_v1 \
     import servicemanagement_v1_messages as messages  # nopep8
 
 
-class MessagesTest(unittest.TestCase):
+class MessagesTest(unittest2.TestCase):
 
     def testInstantiateMessageWithAdditionalProperties(self):
         PROJECT_NAME = 'test-project'

@@ -17,49 +17,10 @@
 """A helper function that executes a series of List queries for many APIs."""
 
 from apitools.base.py import encoding
-import six
 
 __all__ = [
     'YieldFromList',
 ]
-
-
-def _GetattrNested(message, attribute):
-    """Gets a possibly nested attribute.
-
-    Same as getattr() if attribute is a string;
-    if attribute is a tuple, returns the nested attribute referred to by
-    the fields in the tuple as if they were a dotted accessor path.
-
-    (ex _GetattrNested(msg, ('foo', 'bar', 'baz')) gets msg.foo.bar.baz
-    """
-    if isinstance(attribute, six.string_types):
-        return getattr(message, attribute)
-    elif len(attribute) == 0:
-        return message
-    else:
-        return _GetattrNested(getattr(message, attribute[0]), attribute[1:])
-
-
-def _SetattrNested(message, attribute, value):
-    """Sets a possibly nested attribute.
-
-    Same as setattr() if attribute is a string;
-    if attribute is a tuple, sets the nested attribute referred to by
-    the fields in the tuple as if they were a dotted accessor path.
-
-    (ex _SetattrNested(msg, ('foo', 'bar', 'baz'), 'v') sets msg.foo.bar.baz
-    to 'v'
-    """
-    if isinstance(attribute, six.string_types):
-        return setattr(message, attribute, value)
-    elif len(attribute) < 1:
-        raise ValueError("Need an attribute to set")
-    elif len(attribute) == 1:
-        return setattr(message, attribute[0], value)
-    else:
-        return setattr(_GetattrNested(message, attribute[:-1]),
-                       attribute[-1], value)
 
 
 def YieldFromList(
@@ -67,8 +28,7 @@ def YieldFromList(
         method='List', field='items', predicate=None,
         current_token_attribute='pageToken',
         next_token_attribute='nextPageToken',
-        batch_size_attribute='maxResults',
-        get_field_func=_GetattrNested):
+        batch_size_attribute='maxResults'):
     """Make a series of List requests, keeping track of page tokens.
 
     Args:
@@ -85,25 +45,21 @@ def YieldFromList(
       method: str, The name of the method used to fetch resources.
       field: str, The field in the response that will be a list of items.
       predicate: lambda, A function that returns true for items to be yielded.
-      current_token_attribute: str or tuple, The name of the attribute in a
+      current_token_attribute: str, The name of the attribute in a
           request message holding the page token for the page being
-          requested. If a tuple, path to attribute.
-      next_token_attribute: str or tuple, The name of the attribute in a
-          response message holding the page token for the next page. If a
-          tuple, path to the attribute.
-      batch_size_attribute: str or tuple, The name of the attribute in a
+          requested.
+      next_token_attribute: str, The name of the attribute in a
+          response message holding the page token for the next page.
+      batch_size_attribute: str, The name of the attribute in a
           response message holding the maximum number of results to be
           returned. None if caller-specified batch size is unsupported.
-          If a tuple, path to the attribute.
-      get_field_func: Function that returns the items to be yielded. Argument
-          is response message, and field.
 
     Yields:
       protorpc.message.Message, The resources listed by the service.
 
     """
     request = encoding.CopyProtoMessage(request)
-    _SetattrNested(request, current_token_attribute, None)
+    setattr(request, current_token_attribute, None)
     while limit is None or limit:
         if batch_size_attribute:
             # On Py3, None is not comparable so min() below will fail.
@@ -116,10 +72,10 @@ def YieldFromList(
                 request_batch_size = None
             else:
                 request_batch_size = min(batch_size, limit or batch_size)
-            _SetattrNested(request, batch_size_attribute, request_batch_size)
+            setattr(request, batch_size_attribute, request_batch_size)
         response = getattr(service, method)(request,
                                             global_params=global_params)
-        items = get_field_func(response, field)
+        items = getattr(response, field)
         if predicate:
             items = list(filter(predicate, items))
         for item in items:
@@ -129,7 +85,7 @@ def YieldFromList(
             limit -= 1
             if not limit:
                 return
-        token = _GetattrNested(response, next_token_attribute)
+        token = getattr(response, next_token_attribute)
         if not token:
             return
-        _SetattrNested(request, current_token_attribute, token)
+        setattr(request, current_token_attribute, token)

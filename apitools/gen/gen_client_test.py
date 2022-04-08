@@ -16,7 +16,8 @@
 """Test for gen_client module."""
 
 import os
-import unittest
+
+import unittest2
 
 from apitools.gen import gen_client
 from apitools.gen import test_utils
@@ -31,7 +32,7 @@ def _GetContent(file_path):
         return f.read()
 
 
-class ClientGenCliTest(unittest.TestCase):
+class ClientGenCliTest(unittest2.TestCase):
 
     def testHelp_NotEnoughArguments(self):
         with self.assertRaisesRegexp(SystemExit, '0'):

@@ -16,15 +16,15 @@
 """Tests for buffered_stream."""
 
 import string
-import unittest
 
 import six
+import unittest2
 
 from apitools.base.py import buffered_stream
 from apitools.base.py import exceptions
 
 
-class BufferedStreamTest(unittest.TestCase):
+class BufferedStreamTest(unittest2.TestCase):
 
     def setUp(self):
         self.stream = six.StringIO(string.ascii_letters)
