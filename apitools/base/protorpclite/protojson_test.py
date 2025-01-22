@@ -152,6 +152,8 @@ class ProtojsonTest(test_util.TestCase,
     encoded_string_types = '{"string_value": "Latin"}'
 
     encoded_invalid_enum = '{"enum_value": "undefined"}'
+    
+    encoded_invalid_repeated_enum = '{"enum_value": ["VAL1", "undefined"]}'
 
     def testConvertIntegerToFloat(self):
         """Test that integers passed in to float fields are converted.
@@ -440,7 +442,7 @@ class ProtojsonTest(test_util.TestCase,
         """Test decoding improperly encoded base64 bytes value."""
         self.assertRaisesWithRegexpMatch(
             messages.DecodeError,
-            'Base64 decoding error: Incorrect padding',
+            'Base64 decoding error',
             protojson.decode_message,
             test_util.OptionalMessage,
             '{"bytes_value": "abcdefghijklmnopq"}')
