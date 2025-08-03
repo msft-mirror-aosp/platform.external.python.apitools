@@ -1,5 +1,5 @@
 # This project was upgraded with external_updater.
-# Usage: tools/external_updater/updater.sh update external/python/apitools
+# Usage: tools/external_updater/updater.sh update external/<absolute path to project>
 # For more info, check https://cs.android.com/android/platform/superproject/main/+/main:tools/external_updater/README.md
 
 name: "apitools"
@@ -8,13 +8,13 @@ third_party {
   license_type: NOTICE
   last_upgrade_date {
     year: 2025
-    month: 1
-    day: 17
+    month: 8
+    day: 3
   }
   homepage: "https://github.com/google/apitools"
   identifier {
     type: "Git"
     value: "https://github.com/google/apitools"
-    version: "v0.5.34"
+    version: "v0.5.35"
   }
 }
