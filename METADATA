@@ -15,6 +15,7 @@ third_party {
   identifier {
     type: "Git"
     value: "https://github.com/google/apitools"
-    version: "v0.5.35"
+    version: "cffd493d52b2cfa23157d03fa4507da9750e85ea"
+    closest_version: "v0.5.35"
   }
 }
