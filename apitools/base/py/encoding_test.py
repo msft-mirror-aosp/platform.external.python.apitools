@@ -205,6 +205,7 @@ class MessageWithRemappings(messages.Message):
     another_field = messages.StringField(3)
     repeated_enum = messages.EnumField(SomeEnum, 4, repeated=True)
     repeated_field = messages.StringField(5, repeated=True)
+    field = messages.StringField(6)
 
 
 class MessageWithPackageAndRemappings(messages.Message):
@@ -236,6 +237,8 @@ encoding.AddCustomJsonFieldMapping(MessageWithRemappings,
                                    'another_field', 'anotherField')
 encoding.AddCustomJsonFieldMapping(MessageWithRemappings,
                                    'repeated_field', 'repeatedField')
+encoding.AddCustomJsonFieldMapping(MessageWithRemappings,
+                                   'field', 'remappedField')
 
 
 class EncodingTest(unittest.TestCase):
@@ -641,6 +644,19 @@ class EncodingTest(unittest.TestCase):
             double_encoding=MessageWithRemappings.SomeEnum.enum_value)
         json_message = encoding.MessageToJson(msg)
         self.assertEqual('{"doubleEncoding": "wire_name"}', json_message)
+        self.assertEqual(
+            msg, encoding.JsonToMessage(MessageWithRemappings, json_message))
+
+    def testSubstringFieldRemapping(self):
+        # 'field' is a substring of 'another_field' and 'repeated_field',
+        # as well as a substring of the string value below. When 'field' is
+        # unset, encoding must not raise KeyError.
+        msg = MessageWithRemappings(
+            another_field='value containing field substring')
+        json_message = encoding.MessageToJson(msg)
+        self.assertEqual(
+            '{"anotherField": "value containing field substring"}',
+            json_message)
         self.assertEqual(
             msg, encoding.JsonToMessage(MessageWithRemappings, json_message))
 
